@@ -1,13 +1,16 @@
 import { Component } from "../common/Component.js";
 
-export class ProductItem extends Component {
+export class DetailReviewItem extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      products: props.products || [],
+    };
   }
 
   render() {
     const item = document.createElement("div");
-    item.className = `card`;
+    item.className = "review-card";
 
     const generateStars = (rating) => {
       const fullStarts = Math.floor(rating);
@@ -30,18 +33,13 @@ export class ProductItem extends Component {
     const stars = generateStars(rating);
 
     item.innerHTML = `
-      <div class="card-img-wrap">
-          <a href="./detail.html?id=${this.props.product.id}"><img src="${
-      this.props.product.image
-    }" alt="" /></a>
-      </div>
-      <p class="product-title"><strong>${
-        this.props.product.title.substring(0, 20) + "..."
-      }</strong></p>
-      <p class="products-rate"><span>${stars}${
-      this.props.product.rating.rate
-    }/5</span></p>
-      <p class="products-cost"><strong>$${this.props.product.price}</strong></p>
+        <p class="rates">${stars}</p>
+        <p class="writer">${this.props.product.review.writer}✅</p>
+        <p class="content">
+            ${this.props.product.review.content}
+        </p>
+        <br />
+        <p class="date">${this.props.product.review.date}</p>
     `;
 
     return item;
